@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RecycleView_Retrofit</string>
+    <string name="tmdb_api_key">2acca57d3714c77d637f914b37bbf4ae</string>
+
+    <string name="poisk_kino_api_key">EW9C3QC-EPR4398-JGTQPPF-AGCY1GN</string>
+    
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
