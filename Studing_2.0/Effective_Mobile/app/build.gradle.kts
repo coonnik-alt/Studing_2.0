@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.myapplication"
+    namespace = "com.example.test_application"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.myapplication"
+        applicationId = "com.example.test_application"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -40,23 +40,6 @@ android {
 }
 
 dependencies {
-
-    implementation("io.coil-kt:coil-compose:2.7.0")
-
-    //Paging
-    implementation("androidx.paging:paging-runtime:3.3.2")
-    implementation("androidx.paging:paging-compose:3.3.2")
-
-    //Moshi
-    implementation ("com.squareup.moshi:moshi:1.15.0")
-    implementation ("com.squareup.moshi:moshi-kotlin:1.15.0")
-    implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
-
-    //Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -65,11 +48,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.legacy.support.v4)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
-    implementation(libs.androidx.appcompat)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

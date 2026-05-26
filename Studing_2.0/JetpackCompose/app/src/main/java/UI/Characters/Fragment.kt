@@ -8,15 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -25,7 +29,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.semantics.SemanticsActions.OnClick
@@ -35,10 +41,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import navigation.AppNavHost
 import org.w3c.dom.Text
 import retrofit2.Retrofit
 
@@ -64,32 +72,62 @@ class Fragment : Fragment() {
 
         return ComposeView(requireContext()).apply {
             setContent {
-                ChartersScreen(viewModel)
+
+                val navHostController = rememberNavController()
+
+                AppNavHost(
+                    navHostController = navHostController,
+                    viewModel = viewModel
+                )
             }
+        }
         }
     }
 
-    @Composable
-    fun ChartersScreen(viewModel: ViewModel){
 
-        val characters = viewModel.characters.collectAsLazyPagingItems()
+@Composable
+fun ChartersScreen(viewModel: ViewModel,
+                   onNextClick: () -> Unit) {
+
+    val characters = viewModel.characters.collectAsLazyPagingItems()
+
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+
+        Spacer(modifier = Modifier.height(45.dp))
+
+        Button(
+            onClick = onNextClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp)
+        ) {
+            Text(text = "Перейти на следующий экран")
+        }
 
         when (characters.loadState.refresh) {
-            is LoadState.Loading -> { Text (text = "Загрузка...")}
-            is LoadState.Error -> {Text (text = "Ошибка загрузки.")}
+            is LoadState.Loading -> {
+                Text(text = "Загрузка...")
+            }
+
+            is LoadState.Error -> {
+                Text(text = "Ошибка загрузки.")
+            }
+
             else -> LazyColumn {
                 items(characters.itemCount) { index ->
                     val character = characters[index]
-                    if (character!=null) {
+                    if (character != null) {
 
                         var expanded by remember { mutableStateOf(false) }
 
-                        Card (
+                        Card(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .fillMaxHeight()
                                 .padding(5.dp)
-                                .clickable{
+                                .clickable {
                                     expanded = !expanded
                                 },
                             elevation = CardDefaults.cardElevation(4.dp)
@@ -155,4 +193,18 @@ class Fragment : Fragment() {
         }
     }
 }
+    @Composable
+    fun secondScreen() {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Второй экран",
+                color = Color.Black,
+                fontSize = 24.sp
+            )
+        }
+    }
+
 
