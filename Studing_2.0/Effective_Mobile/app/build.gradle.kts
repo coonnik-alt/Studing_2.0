@@ -14,6 +14,7 @@ android {
     }
 
     defaultConfig {
+        testInstrumentationRunner = "com.kaspersky.kaspresso.runner.KaspressoRunner"
         applicationId = "com.example.test_application"
         minSdk = 24
         targetSdk = 36
@@ -42,6 +43,15 @@ android {
 }
 
 dependencies {
+
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+
+    androidTestImplementation("com.kaspersky.android-components:kaspresso:1.6.1")
+    androidTestImplementation("com.kaspersky.android-components:kaspresso-compose-support:1.6.1")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+
+    testImplementation("junit:junit:4.13.2")
 
     implementation("androidx.room:room-runtime:2.8.4")
     implementation("androidx.room:room-ktx:2.8.4")

@@ -20,6 +20,8 @@ class CoursesViewModel(
     private val prefs: SharedPreferences
 ) : ViewModel() {
 
+    val validator = LoginValidator()
+
     var courses by mutableStateOf<List<CourseDto>>(emptyList())
         private set
 
@@ -28,6 +30,22 @@ class CoursesViewModel(
 
     var errorText by mutableStateOf<String?>(null)
         private set
+
+    var email by mutableStateOf("")
+        private set
+
+    var emailTouched by mutableStateOf(false)
+        private set
+
+    val isEmailValid : Boolean
+        get() = emailTouched && email.isNotEmpty() && !isEmailValid
+
+    fun onEmailChange(newValue : String) {
+        if (!validator.hasCyrillic(newValue)) {
+            email = newValue
+            emailTouched = true
+        }
+    }
 
     init {
         loadCourses()

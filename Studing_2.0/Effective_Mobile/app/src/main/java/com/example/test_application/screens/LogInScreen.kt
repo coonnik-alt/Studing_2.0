@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -82,12 +83,14 @@ fun LogIn(
             fontSize = 18.sp,
             color = Color.White,
             modifier = Modifier
+                .testTag("email_error")
                 .padding(5.dp))
 
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
+                .testTag("email_field")
             ,
             value = email,
             onValueChange = { newValue ->
@@ -112,12 +115,6 @@ fun LogIn(
                 unfocusedIndicatorColor = Color.Transparent
             )
         )
-        if (emailTouched && email.isNotEmpty() && !isEmailValid) {
-            Text(
-                text = "Email некорректный",
-                color = Color.Red,
-                fontSize = 15.sp
-            )
         }
 
         Spacer(Modifier.padding(top = 15.dp))
@@ -271,4 +268,3 @@ fun LogIn(
             }
         }
     }
-}
